@@ -156,7 +156,7 @@ importers:
         version: 7.34.1(eslint@8.57.0)
       eslint-plugin-react-hooks:
         specifier: next
-        version: 5.1.0-rc-1c9b1387-20241204(eslint@8.57.0)
+        version: 5.2.0-canary-d85cf3e5-20250205(eslint@8.57.0)
       fs-extra:
         specifier: ^10.1.0
         version: 10.1.0
@@ -617,6 +617,9 @@ importers:
       set-cookie-parser:
         specifier: ^2.6.0
         version: 2.6.0
+      temporal-polyfill:
+        specifier: ^0.2.5
+        version: 0.2.5
       turbo-stream:
         specifier: 2.4.0
         version: 2.4.0
@@ -841,7 +844,7 @@ importers:
         version: 16.4.5
       esbuild-register:
         specifier: ^3.3.2
-        version: 3.5.0(esbuild@0.24.0)
+        version: 3.5.0(esbuild@0.17.19)
       execa:
         specifier: 5.1.1
         version: 5.1.1
@@ -4672,8 +4675,8 @@ packages:
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
 
-  eslint-plugin-react-hooks@5.1.0-rc-1c9b1387-20241204:
-    resolution: {integrity: sha512-E9JU9aJux/AlcpVVvPvwAzou9pkoCMfIs8JchMUcUufw+poffUoXtV1QG+JE3c5mIJ887BeQyXCX1pQNLghu5g==}
+  eslint-plugin-react-hooks@5.2.0-canary-d85cf3e5-20250205:
+    resolution: {integrity: sha512-WVeGW6IeJFY6VIJKHgemqSMpI4PXU+TpZHMmhYCCqgm2x5ty5aNUS5DscFVyPlzYpTllRzQzPcjXESDrxbhmaQ==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -7369,6 +7372,12 @@ packages:
   tar-stream@2.2.0:
     resolution: {integrity: sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==}
     engines: {node: '>=6'}
+
+  temporal-polyfill@0.2.5:
+    resolution: {integrity: sha512-ye47xp8Cb0nDguAhrrDS1JT1SzwEV9e26sSsrWzVu+yPZ7LzceEcH0i2gci9jWfOfSCCgM3Qv5nOYShVUUFUXA==}
+
+  temporal-spec@0.2.4:
+    resolution: {integrity: sha512-lDMFv4nKQrSjlkHKAlHVqKrBG4DyFfa9F74cmBZ3Iy3ed8yvWnlWSIdi4IKfSqwmazAohBNwiN64qGx4y5Q3IQ==}
 
   term-size@2.2.1:
     resolution: {integrity: sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==}
@@ -11830,17 +11839,17 @@ snapshots:
       is-date-object: 1.0.5
       is-symbol: 1.0.4
 
+  esbuild-register@3.5.0(esbuild@0.17.19):
+    dependencies:
+      debug: 4.3.7
+      esbuild: 0.17.19
+    transitivePeerDependencies:
+      - supports-color
+
   esbuild-register@3.5.0(esbuild@0.17.6):
     dependencies:
       debug: 4.3.7
       esbuild: 0.17.6
-    transitivePeerDependencies:
-      - supports-color
-
-  esbuild-register@3.5.0(esbuild@0.24.0):
-    dependencies:
-      debug: 4.3.7
-      esbuild: 0.24.0
     transitivePeerDependencies:
       - supports-color
 
@@ -12157,7 +12166,7 @@ snapshots:
     dependencies:
       eslint: 8.57.0
 
-  eslint-plugin-react-hooks@5.1.0-rc-1c9b1387-20241204(eslint@8.57.0):
+  eslint-plugin-react-hooks@5.2.0-canary-d85cf3e5-20250205(eslint@8.57.0):
     dependencies:
       eslint: 8.57.0
 
@@ -15740,6 +15749,12 @@ snapshots:
       fs-constants: 1.0.0
       inherits: 2.0.4
       readable-stream: 3.6.2
+
+  temporal-polyfill@0.2.5:
+    dependencies:
+      temporal-spec: 0.2.4
+
+  temporal-spec@0.2.4: {}
 
   term-size@2.2.1: {}
 

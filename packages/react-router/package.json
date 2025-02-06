@@ -83,6 +83,7 @@
     "@types/cookie": "^0.6.0",
     "cookie": "^1.0.1",
     "set-cookie-parser": "^2.6.0",
+    "temporal-polyfill": "^0.2.5",
     "turbo-stream": "2.4.0"
   },
   "devDependencies": {

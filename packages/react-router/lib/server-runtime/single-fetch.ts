@@ -24,6 +24,9 @@ import { ServerMode } from "./mode";
 import { getDocumentHeaders } from "./headers";
 import type { ServerBuild } from "./build";
 
+// -*-*- Import Temporal types -*-*-
+import { Temporal } from "temporal-polyfill";
+
 export type { SingleFetchResult, SingleFetchResults };
 export { SingleFetchRedirectSymbol };
 
@@ -297,7 +300,17 @@ export type Serializable =
   | Error
   | Map<Serializable, Serializable>
   | Set<Serializable>
-  | Promise<Serializable>;
+  | Promise<Serializable>
+  // -*-*- add support for temporal types -*-*-
+  | Temporal.Instant
+  | Temporal.ZonedDateTime
+  | Temporal.PlainDate
+  | Temporal.PlainTime
+  | Temporal.PlainDateTime
+  | Temporal.PlainYearMonth
+  | Temporal.PlainMonthDay
+  | Temporal.Duration
+  ;
 
 export function data(value: Serializable, init?: number | ResponseInit) {
   return routerData(value, init);
@@ -328,6 +341,26 @@ export function encodeViaTurboStream(
   return encode(data, {
     signal: controller.signal,
     plugins: [
+      // -*-*- add support for temporal types encoding -*-*-
+      (value) => {
+        if (value instanceof Temporal.Instant) {
+          return ["Temporal.Instant", value.toJSON()];
+        } else if (value instanceof Temporal.ZonedDateTime) {
+          return ["Temporal.ZonedDateTime", value.toJSON()];
+        } else if (value instanceof Temporal.PlainDate) {
+          return ["Temporal.PlainDate", value.toJSON()];
+        } else if (value instanceof Temporal.PlainTime) {
+          return ["Temporal.PlainTime", value.toJSON()];
+        } else if (value instanceof Temporal.PlainDateTime) {
+          return ["Temporal.PlainDateTime", value.toJSON()];
+        } else if (value instanceof Temporal.PlainYearMonth) {
+          return ["Temporal.PlainYearMonth", value.toJSON()];
+        } else if (value instanceof Temporal.PlainMonthDay) {
+          return ["Temporal.PlainMonthDay", value.toJSON()];
+        } else if (value instanceof Temporal.Duration) {
+          return ["Temporal.Duration", value.toJSON()];
+        }
+      },
       (value) => {
         // Even though we sanitized errors on context.errors prior to responding,
         // we still need to handle this for any deferred data that rejects with an

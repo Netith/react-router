@@ -20,6 +20,9 @@ import { escapeHtml } from "./markup";
 import type { RouteModules } from "./routeModules";
 import invariant from "./invariant";
 
+// -*-*- Import Temporal types -*-*-
+import { Temporal } from "temporal-polyfill";
+
 export const SingleFetchRedirectSymbol = Symbol("SingleFetchRedirect");
 
 export type SingleFetchRedirectResult = {
@@ -466,6 +469,24 @@ export function decodeViaTurboStream(
 ) {
   return decode(body, {
     plugins: [
+      // -*-*- add support for temporal types decoding -*-*-
+      (type: string, ...rest: unknown[]) => {
+        if (type === "Temporal.Instant") {
+          return { value: Temporal.Instant.from(rest[0] as string) };
+        } else if (type === "Temporal.ZonedDateTime") {
+          return { value: Temporal.ZonedDateTime.from(rest[0] as string) };
+        } else if (type === "Temporal.PlainDate") {
+          return { value: Temporal.PlainDate.from(rest[0] as string) };
+        } else if (type === "Temporal.PlainTime") {
+          return { value: Temporal.PlainTime.from(rest[0] as string) };
+        } else if (type === "Temporal.PlainDateTime") {
+          return { value: Temporal.PlainDateTime.from(rest[0] as string) };
+        } else if (type === "Temporal.PlainYearMonth") {
+          return { value: Temporal.PlainYearMonth.from(rest[0] as string) };
+        } else if (type === "Temporal.PlainMonthDay") {
+          return { value: Temporal.PlainMonthDay.from(rest[0] as string) };
+        }
+      },
       (type: string, ...rest: unknown[]) => {
         // Decode Errors back into Error instances using the right type and with
         // the right (potentially undefined) stacktrace
