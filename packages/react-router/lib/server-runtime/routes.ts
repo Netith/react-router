@@ -3,6 +3,7 @@ import type {
   LoaderFunctionArgs as RRLoaderFunctionArgs,
   ActionFunctionArgs as RRActionFunctionArgs,
   RouteManifest,
+  unstable_MiddlewareFunction,
 } from "../router/utils";
 import { callRouteHandler } from "./data";
 import type { FutureConfig } from "../dom/ssr/entry";
@@ -72,12 +73,15 @@ export function createStaticHandlerDataRoutes(
         route.id === "root" || route.module.ErrorBoundary != null,
       id: route.id,
       path: route.path,
+      unstable_middleware: route.module.unstable_middleware as unknown as
+        | unstable_MiddlewareFunction[]
+        | undefined,
       // Need to use RR's version in the param typed here to permit the optional
       // context even though we know it'll always be provided in remix
       loader: route.module.loader
         ? async (args: RRLoaderFunctionArgs) => {
             // If we're prerendering, use the data passed in from prerendering
-            // the .data route so we dom't call loaders twice
+            // the .data route so we don't call loaders twice
             if (args.request.headers.has("X-React-Router-Prerender-Data")) {
               const preRenderedData = args.request.headers.get(
                 "X-React-Router-Prerender-Data"
